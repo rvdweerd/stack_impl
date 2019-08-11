@@ -57,8 +57,8 @@ void RunMenu(CharStack* charstack)
 			break;
 		}
 		}
-		char buf1[3] = { 0 }; CRog::int2str(charstack->getCapacity(), buf1, 3);
-		char buf2[3] = { 0 }; CRog::int2str(charstack->getCount(), buf2, 3);
+		char buf1[3] = { 0 }; CRog::int2str(charstack->GetCapacity(), buf1, 3);
+		char buf2[3] = { 0 }; CRog::int2str(charstack->GetCount(), buf2, 3);
 		CRog::print("\n\nStack: "); CRog::print(buf2); CRog::print("/"); CRog::print(buf1); CRog::print(" | "); charstack->Print();
 		MenuChoice(choice);
 	}
@@ -67,10 +67,19 @@ void RunMenu(CharStack* charstack)
 
 int main()
 {
-	CharStack charstack;// = new CharStack();
+	//CharStack* charstack = new CharStack();
+	{
+		CharStack charstack;
+		CharStack* pchst = &charstack;
+		RunMenu(pchst);
 
-	//RunMenu(charstack);
-
+		CharStack charstack_copy1(charstack);
+		CharStack charstack_copy2;
+		charstack_copy2 = charstack;
+		charstack_copy1.Push('A');
+		charstack_copy2.Push('B');
+	}
+	/*
 	for (char ch = 'A'; ch <= 'Z'; ch++)
 	{
 		charstack.Push(ch);
@@ -82,7 +91,7 @@ int main()
 	}
 
 
-
+	*/
 	while (!_kbhit());
 	return 0;
 }

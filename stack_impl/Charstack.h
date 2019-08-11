@@ -6,15 +6,21 @@ class CharStack
 public:
 	CharStack()
 		:
-		array(new char[INITIAL_CAPACITY]{ 0 }),
+		array(new char[INITIAL_CAPACITY] { 0 }),
 		capacity(INITIAL_CAPACITY),
-		count (0)
+		count(0)
 	{
 	}
+	CharStack(const CharStack& chstk)
+	{
+		CopyInternalData(chstk);
+	}
+	CharStack& operator=(CharStack& rhs);
 	~CharStack()
 	{
 		delete[] array;
 	}
+	void CopyInternalData(const CharStack& chstk);
 	int Size();
 	bool IsEmpty() const;
 	void Push(char ch);
@@ -22,8 +28,8 @@ public:
 	const char Peek() const;
 	void Print();
 	void Clear();
-	int getCapacity();
-	int getCount();
+	int GetCapacity();
+	int GetCount();
 private:
 	void ExpandCapacity();
 private:

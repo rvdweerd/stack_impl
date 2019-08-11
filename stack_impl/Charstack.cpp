@@ -1,6 +1,27 @@
 #pragma once
 #include "Charstack.h"
 
+CharStack& CharStack::operator=(CharStack& rhs)
+{
+	if (this != &rhs)
+	{
+		delete[] this->array;
+		this->CopyInternalData(rhs);
+	}
+		return *this;
+}
+
+void CharStack::CopyInternalData(const CharStack& chstk)
+{
+	this->count = chstk.count;
+	this->capacity = chstk.capacity;
+	this->array = new char[this->capacity]{ 0 };
+	for (int i = 0; i < this->count; i++)
+	{
+		this->array[i] = chstk.array[i];
+	}
+}
+
 int CharStack::Size()
 {
 	return count;
@@ -60,12 +81,12 @@ void CharStack::Clear()
 	count = 0;
 }
 
-int CharStack::getCapacity()
+int CharStack::GetCapacity()
 {
 	return capacity;
 }
 
-int CharStack::getCount()
+int CharStack::GetCount()
 {
 	return count;
 }
